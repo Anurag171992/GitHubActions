@@ -16,3 +16,5 @@ jobs:
 
       - name: Verify runner
         run: echo "Running CI on macOS" # Execute this command on runners terminal/shell
+      - name: Check Xcode version
+        run: xcodebuild -version
