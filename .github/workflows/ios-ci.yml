@@ -18,3 +18,10 @@ jobs:
         run: echo "Running CI on macOS" # Execute this command on runners terminal/shell
       - name: Check Xcode version
         run: xcodebuild -version
+        
+      - name: Build iOS App
+      # build GitHubActionsDemo.xcodeproj
+      # scheme - GitHubActionsDemo
+      # on simulator
+      # code signing allowed is No as we do not have Apple Developer account
+        run: xcodebuild build -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO
