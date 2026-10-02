@@ -19,6 +19,9 @@ jobs:
       - name: Check Xcode version
         run: xcodebuild -version
         
+      - name: List installed Xcode versions
+        run: ls /Applications | grep Xcode
+        
       - name: Build iOS App
       # build GitHubActionsDemo.xcodeproj
       # scheme - GitHubActionsDemo
