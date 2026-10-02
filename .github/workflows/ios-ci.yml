@@ -1,0 +1,18 @@
+# Name of the GitHub Actions workflow
+name: iOS CI
+
+# Defines when this workflow should run
+on:
+  push:
+
+# Defines the work that will be executed
+# Can have one or multiple jobs like: Build Job, Test Job, Code Quality Job
+jobs:
+  build-and-test:  # Is a custom name
+    runs-on: macos-latest # runs-on is the runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6 # GitHub's official reusable action, that checksout [using version 6] our repository on the Runners workspace.
+      - name: Verify runner
+        run: echo "Running CI on macOS" # Execute this command on runners terminal/shell
