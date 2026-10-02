@@ -8,7 +8,7 @@ on:
 # Defines the work that will be executed
 jobs:
   build-and-test: # Is a custom name
-    runs-on: macos-latest  # runs-on is the runner
+    runs-on: xcode-27  # runs-on is the runner
 
     steps:
       - name: Checkout repository
