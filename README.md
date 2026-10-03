@@ -1,5 +1,4 @@
 #  # GitHub Actions CI/CD for iOS
-
 A hands-on iOS project created to learn and implement **CI/CD using GitHub Actions from scratch**.
 
 The goal of this repository is to understand how a real iOS project can be automatically built, tested, and validated whenever code changes are pushed to GitHub.
@@ -9,7 +8,6 @@ This project focuses on practical CI/CD implementation along with understanding 
 ---
 
 ## 🎯 Project Goals
-
 This project is being developed incrementally to understand:
 
 - Continuous Integration (CI)
@@ -132,30 +130,25 @@ Event → Workflow → Job → Runner → Steps
 ---
 
 ## 🚧 Remaining Implementation
-
 The following topics will be added incrementally.
 
 ### Automated Testing
-
 - [x] Run unit tests using `xcodebuild test`
 - [x] Automatically fail CI when tests fail
 - [x] Understand test destinations / simulators
 - [x] Inspect test results in GitHub Actions
 
 ### Code Coverage
-
 - [ ] Enable code coverage
 - [ ] Generate coverage information during CI
 - [ ] Understand how coverage can be used as a quality signal
 
 ### Code Quality
-
 - [ ] Integrate SwiftLint
 - [ ] Run lint checks automatically in CI
 - [ ] Make CI detect code-quality violations
 
 ### Pull Request CI
-
 - [x] Trigger workflows for Pull Requests
 - [x] Validate changes before merge
 - [x] Understand CI checks in the PR workflow
@@ -210,27 +203,23 @@ CI Passed ✅
 Manual Merge to main
 
 ### Artifacts
-
 - [ ] Understand GitHub Actions artifacts
 - [ ] Generate useful build/test outputs
 - [ ] Upload artifacts from workflow runs
 - [ ] Download and inspect generated artifacts
 
 ### Dependency Caching
-
 - [ ] Understand why caching is useful in CI
 - [ ] Configure dependency caching
 - [ ] Reduce unnecessary work between workflow runs
 
 ### Secrets
-
 - [ ] Understand GitHub Secrets
 - [ ] Store sensitive configuration securely
 - [ ] Access secrets from GitHub Actions
 - [ ] Understand why credentials should never be committed to source control
 
 ### Workflow Improvements
-
 - [ ] Reduce unnecessary workflow steps
 - [ ] Improve workflow readability
 - [ ] Understand environment variables
@@ -242,7 +231,6 @@ Manual Merge to main
 ---
 
 ## 📦 Planned Final CI Flow
-
 As the project progresses, the workflow will evolve toward something similar to:
 
 ```text
@@ -272,7 +260,6 @@ Code Push / Pull Request
 ---
 
 ## 🚀 CD / TestFlight
-
 A complete production iOS CD pipeline can extend the workflow further:
 
 ```text
@@ -296,7 +283,6 @@ This repository currently focuses on implementing the parts of the CI/CD pipelin
 ---
 
 ## 🧠 Real-World Issue Encountered
-
 During the initial CI setup, the project was created locally using **Xcode 27**, while the initial GitHub Actions macOS runner selected **Xcode 26.6**.
 
 The CI build failed because the older Xcode version could not read the newer project file format.
@@ -318,7 +304,6 @@ This demonstrates an important CI principle:
 ---
 
 ## 🛠 Technologies
-
 - Swift
 - iOS
 - Xcode
@@ -345,21 +330,19 @@ macOS / Xcode Runner     ✅
 Automated iOS Build      ✅
 CI Debugging             ✅
 
-Unit Testing             ⏳ Next
+Unit Testing             ⏳
 Code Coverage            ⏳
 SwiftLint                ⏳
-Pull Request CI          ⏳
+Pull Request CI          ✅
 Artifacts                ⏳
 Caching                  ⏳
 Secrets                  ⏳
-Advanced Workflows       ⏳
 CD / TestFlight Concepts ⏳
 ```
 
 ---
 
 ## 📌 Purpose of This Repository
-
 This repository is primarily a **hands-on CI/CD learning project**.
 
 Instead of only studying CI/CD theoretically, each concept is being implemented incrementally in a real iOS project, including debugging actual CI environment and build issues.
