@@ -5,34 +5,52 @@ name: iOS CI
 on:
   pull_request:
     branches:
-         # PR → main → CI runs
-         #If PR already running PR updates → CI automatically runs again
+      # PR → main → CI runs
+      # If PR already running PR updates → CI automatically runs again
       - main
 
 # Defines the work that will be executed
 jobs:
   build-and-test: # Is a custom name
-    runs-on: xcode-27  # runs-on is the runner
+    runs-on: xcode-27 # runs-on is the runner
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6 # GitHub's official reusable action, that checksout [using version 6] our repository on the Runners workspace.
+        uses: actions/checkout@v6 # GitHub's official reusable action that checks out our repository on the runner's workspace.
 
       - name: Verify runner
-        run: echo "Running CI on macOS" # Execute this command on runners terminal/shell
+        run: echo "Running CI on macOS"
+
       - name: Check Xcode version
         run: xcodebuild -version
-        
+
       - name: List installed Xcode versions
         run: ls /Applications | grep Xcode
-        
+
       - name: Build iOS App
-      # build GitHubActionsDemo.xcodeproj
-      # scheme - GitHubActionsDemo
-      # Build on simulator , concrete simluator is not required
-      # code signing allowed is No as we do not have Apple Developer account
-        run: xcodebuild build -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO
+        # Build GitHubActionsDemo.xcodeproj
+        # Scheme - GitHubActionsDemo
+        # Build on simulator, concrete simulator is not required
+        # Code signing allowed is NO as we do not have Apple Developer account
+        run: |
+          xcodebuild build \
+            -project GitHubActionsDemo.xcodeproj \
+            -scheme GitHubActionsDemo \
+            -sdk iphonesimulator \
+            CODE_SIGNING_ALLOWED=NO
+
       # Run test case on specific simulator
-      # For running test cases concrete simulator was required
+      # For running test cases concrete simulator is required
       - name: Run Unit Tests
-        run: xcodebuild test -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' -only-testing:GitHubActionsDemoTests CODE_SIGNING_ALLOWED=NO
+        run: |
+          xcodebuild test \
+            -project GitHubActionsDemo.xcodeproj \
+            -scheme GitHubActionsDemo \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
+            -only-testing:GitHubActionsDemoTests \
+            -enableCodeCoverage YES \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Show Code Coverage
+        run: xcrun xccov view --report TestResults.xcresult
