@@ -21,5 +21,6 @@ final class GitHubActionsDemoTests: XCTestCase {
         let result = 2 + 3
         XCTAssertEqual(result, 5)
     }
+    // swiftlint:disable:next trailing_whitespace
     
 }
