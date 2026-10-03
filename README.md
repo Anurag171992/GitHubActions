@@ -163,31 +163,12 @@ Rules configured:
 - Failed CI blocks the Merge button
 - New commits to an open PR trigger CI again
 - Merge remains manual even after all checks pass
-### Artifacts
-- [ ] Understand GitHub Actions artifacts
-- [ ] Generate useful build/test outputs
-- [ ] Upload artifacts from workflow runs
-- [ ] Download and inspect generated artifacts
-
-### Dependency Caching
-- [ ] Understand why caching is useful in CI
-- [ ] Configure dependency caching
-- [ ] Reduce unnecessary work between workflow runs
 
 ### Secrets
 - [x] Understand GitHub Secrets
 - [x] Store sensitive configuration securely
 - [x] Access secrets from GitHub Actions
 - [x] Understand why credentials should never be committed to source control
-
-### Workflow Improvements
-- [ ] Reduce unnecessary workflow steps
-- [ ] Improve workflow readability
-- [ ] Understand environment variables
-- [ ] Understand job dependencies
-- [ ] Explore multiple jobs
-- [ ] Understand failure handling
-- [ ] Build a more production-like CI pipeline
 
 ---
 
