@@ -156,10 +156,10 @@ The following topics will be added incrementally.
 
 ### Pull Request CI
 
-- [ ] Trigger workflows for Pull Requests
-- [ ] Validate changes before merge
-- [ ] Understand CI checks in the PR workflow
-- [ ] Explore branch-based workflow rules
+- [x] Trigger workflows for Pull Requests
+- [x] Validate changes before merge
+- [x] Understand CI checks in the PR workflow
+- [x] Explore branch-based workflow rules
 
 ### Artifacts
 
