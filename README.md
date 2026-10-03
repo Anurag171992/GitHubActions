@@ -276,8 +276,6 @@ Unit Testing             ✅
 Code Coverage            ✅
 SwiftLint                ✅
 Pull Request CI          ✅
-Artifacts                ⏳
-Caching                  ⏳
 Secrets                  ✅
 CD / TestFlight Concepts ⏳
 ```
