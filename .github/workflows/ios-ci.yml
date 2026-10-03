@@ -54,3 +54,9 @@ jobs:
 
       - name: Show Code Coverage
         run: xcrun xccov view --report TestResults.xcresult
+        
+      - name: Install SwiftLint
+        run: brew install swiftlint
+        
+      - name: Run SwiftLint
+        run: swiftlint
