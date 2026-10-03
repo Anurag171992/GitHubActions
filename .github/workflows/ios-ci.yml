@@ -25,9 +25,10 @@ jobs:
       - name: Build iOS App
       # build GitHubActionsDemo.xcodeproj
       # scheme - GitHubActionsDemo
-      # on simulator
+      # Build on simulator , concrete simluator is not required
       # code signing allowed is No as we do not have Apple Developer account
         run: xcodebuild build -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO
-        
+      # Run test case on specific simulator
+      # For running test cases concrete simulator was required
       - name: Run Unit Tests
-        run: xcodebuild test -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' CODE_SIGNING_ALLOWED=NO
+        run: xcodebuild test -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' -only-testing:GitHubActionsDemoTests CODE_SIGNING_ALLOWED=NO

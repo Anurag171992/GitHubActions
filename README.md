@@ -137,10 +137,10 @@ The following topics will be added incrementally.
 
 ### Automated Testing
 
-- [ ] Run unit tests using `xcodebuild test`
-- [ ] Automatically fail CI when tests fail
-- [ ] Understand test destinations / simulators
-- [ ] Inspect test results in GitHub Actions
+- [x] Run unit tests using `xcodebuild test`
+- [x] Automatically fail CI when tests fail
+- [x] Understand test destinations / simulators
+- [x] Inspect test results in GitHub Actions
 
 ### Code Coverage
 
