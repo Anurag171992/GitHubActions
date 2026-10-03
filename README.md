@@ -175,10 +175,10 @@ Rules configured:
 - [ ] Reduce unnecessary work between workflow runs
 
 ### Secrets
-- [ ] Understand GitHub Secrets
-- [ ] Store sensitive configuration securely
-- [ ] Access secrets from GitHub Actions
-- [ ] Understand why credentials should never be committed to source control
+- [x] Understand GitHub Secrets
+- [x] Store sensitive configuration securely
+- [x] Access secrets from GitHub Actions
+- [x] Understand why credentials should never be committed to source control
 
 ### Workflow Improvements
 - [ ] Reduce unnecessary workflow steps
