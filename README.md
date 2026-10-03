@@ -139,14 +139,14 @@ The following topics will be added incrementally.
 - [x] Inspect test results in GitHub Actions
 
 ### Code Coverage
-- [ ] Enable code coverage
-- [ ] Generate coverage information during CI
-- [ ] Understand how coverage can be used as a quality signal
+- [x] Enable code coverage
+- [x] Generate coverage information during CI
+- [x] Understand how coverage can be used as a quality signal
 
 ### Code Quality
-- [ ] Integrate SwiftLint
-- [ ] Run lint checks automatically in CI
-- [ ] Make CI detect code-quality violations
+- [x] Integrate SwiftLint
+- [x] Run lint checks automatically in CI
+- [x] Make CI detect code-quality violations
 
 ### Pull Request CI
 - [x] Trigger workflows for Pull Requests
