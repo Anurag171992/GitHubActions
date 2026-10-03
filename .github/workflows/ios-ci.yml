@@ -3,7 +3,11 @@ name: iOS CI
 
 # Defines when this workflow should run
 on:
-  push:
+  pull_request:
+    branches:
+         # PR → main → CI runs
+         #If PR already running PR updates → CI automatically runs again
+      - main
 
 # Defines the work that will be executed
 jobs:
