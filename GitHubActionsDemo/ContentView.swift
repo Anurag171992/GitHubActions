@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        let unused_variable = "SwiftLint Demo"
+        let unusedVariable = "SwiftLint Demo"
 
         VStack {
             // existing code...
