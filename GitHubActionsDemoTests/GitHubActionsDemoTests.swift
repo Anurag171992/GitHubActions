@@ -19,7 +19,7 @@ final class GitHubActionsDemoTests: XCTestCase {
 
     func testAddition() throws {
         let result = 2 + 3
-        XCTAssertEqual(result, 10)
+        XCTAssertEqual(result, 5)
     }
     
 }
