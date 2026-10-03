@@ -139,14 +139,14 @@ The following topics will be added incrementally.
 - [x] Inspect test results in GitHub Actions
 
 ### Code Coverage
-- [ ] Enable code coverage
-- [ ] Generate coverage information during CI
-- [ ] Understand how coverage can be used as a quality signal
+- [x] Enable code coverage
+- [x] Generate coverage information during CI
+- [x] Understand how coverage can be used as a quality signal
 
 ### Code Quality
-- [ ] Integrate SwiftLint
-- [ ] Run lint checks automatically in CI
-- [ ] Make CI detect code-quality violations
+- [x] Integrate SwiftLint
+- [x] Run lint checks automatically in CI
+- [x] Make CI detect code-quality violations
 
 ### Pull Request CI
 - [x] Trigger workflows for Pull Requests
@@ -163,31 +163,12 @@ Rules configured:
 - Failed CI blocks the Merge button
 - New commits to an open PR trigger CI again
 - Merge remains manual even after all checks pass
-### Artifacts
-- [ ] Understand GitHub Actions artifacts
-- [ ] Generate useful build/test outputs
-- [ ] Upload artifacts from workflow runs
-- [ ] Download and inspect generated artifacts
-
-### Dependency Caching
-- [ ] Understand why caching is useful in CI
-- [ ] Configure dependency caching
-- [ ] Reduce unnecessary work between workflow runs
 
 ### Secrets
-- [ ] Understand GitHub Secrets
-- [ ] Store sensitive configuration securely
-- [ ] Access secrets from GitHub Actions
-- [ ] Understand why credentials should never be committed to source control
-
-### Workflow Improvements
-- [ ] Reduce unnecessary workflow steps
-- [ ] Improve workflow readability
-- [ ] Understand environment variables
-- [ ] Understand job dependencies
-- [ ] Explore multiple jobs
-- [ ] Understand failure handling
-- [ ] Build a more production-like CI pipeline
+- [x] Understand GitHub Secrets
+- [x] Store sensitive configuration securely
+- [x] Access secrets from GitHub Actions
+- [x] Understand why credentials should never be committed to source control
 
 ---
 
@@ -291,13 +272,13 @@ macOS / Xcode Runner     ✅
 Automated iOS Build      ✅
 CI Debugging             ✅
 
-Unit Testing             ⏳
-Code Coverage            ⏳
-SwiftLint                ⏳
+Unit Testing             ✅
+Code Coverage            ✅
+SwiftLint                ✅
 Pull Request CI          ✅
 Artifacts                ⏳
 Caching                  ⏳
-Secrets                  ⏳
+Secrets                  ✅
 CD / TestFlight Concepts ⏳
 ```
 

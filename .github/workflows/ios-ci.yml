@@ -1,37 +1,195 @@
-# Name of the GitHub Actions workflow
+# ============================================================
+# GitHub Actions - iOS CI Workflow
+# ============================================================
+# Purpose:
+# Whenever a Pull Request is raised against main, this workflow:
+#
+# 1. Checks out the repository
+# 2. Verifies that GitHub Secrets are accessible
+# 3. Verifies the CI environment / Xcode version
+# 4. Builds the iOS application
+# 5. Runs unit tests
+# 6. Generates and displays code coverage
+# 7. Runs SwiftLint for code-quality validation
+#
+# If a required step fails, the job fails.
+# Since "build-and-test" is configured as a required status check
+# in Branch Protection / Rulesets, the PR cannot be merged until CI passes.
+# ============================================================
+
+# Name displayed in the GitHub Actions tab.
 name: iOS CI
 
-# Defines when this workflow should run
+
+# ============================================================
+# TRIGGER
+# ============================================================
+# Defines WHEN this workflow should run.
+#
+# pull_request:
+#   The workflow runs when a PR targeting the specified branch
+#   is opened, updated with new commits, reopened, etc.
+#
+# In our case:
+#
+# Feature Branch
+#       ↓
+# Pull Request → main
+#       ↓
+# iOS CI starts automatically
+#
+# A new commit pushed to the same open PR triggers CI again.
 on:
   pull_request:
     branches:
-      # PR → main → CI runs
-      # If PR already running PR updates → CI automatically runs again
       - main
 
-# Defines the work that will be executed
+
+# ============================================================
+# JOBS
+# ============================================================
+# A workflow can contain one or more jobs.
+#
+# "build-and-test" is our custom job ID.
+#
+# Current workflow:
+#
+# Workflow
+#    ↓
+# build-and-test Job
+#    ↓
+# Multiple Steps
+#
+# Later we can split work into multiple jobs if required.
 jobs:
-  build-and-test: # Is a custom name
-    runs-on: xcode-27 # runs-on is the runner
+  build-and-test:
 
+    # ========================================================
+    # RUNNER
+    # ========================================================
+    # The runner is the machine on which the job executes.
+    #
+    # We use an Xcode 27 runner because this project was created
+    # using Xcode 27 and requires a compatible Xcode version.
+    #
+    # The runner provides macOS + Xcode + command-line tools.
+    runs-on: xcode-27
+
+    # ========================================================
+    # STEPS
+    # ========================================================
+    # Steps execute sequentially inside this job.
+    # If an important step fails, later steps normally do not run.
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6 # GitHub's official reusable action that checks out our repository on the runner's workspace.
 
+      # ------------------------------------------------------
+      # STEP 1 - Checkout Repository
+      # ------------------------------------------------------
+      # GitHub creates a runner for the job, but our repository
+      # source code is not automatically available in its workspace.
+      #
+      # actions/checkout downloads/checks out the PR's repository
+      # code onto the runner.
+      #
+      # "uses" = use an existing reusable GitHub Action.
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+
+      # ------------------------------------------------------
+      # STEP 2 - Verify GitHub Secret
+      # ------------------------------------------------------
+      # Sensitive information should NOT be hard-coded in:
+      #
+      # - Swift source code
+      # - YAML workflow files
+      # - Git commits
+      #
+      # Examples of real CI/CD secrets:
+      # - API keys
+      # - Access tokens
+      # - Certificate passwords
+      # - App Store Connect credentials
+      #
+      # DEMO_API_KEY was created under:
+      #
+      # Repository
+      #   → Settings
+      #   → Secrets and variables
+      #   → Actions
+      #
+      # `${{ secrets.DEMO_API_KEY }}` reads the repository secret
+      # and exposes it to this step as an environment variable.
+      #
+      # IMPORTANT:
+      # We do NOT print the actual secret value.
+      # We only verify whether a value was supplied.
+      - name: Verify Secret
+        env:
+          DEMO_API_KEY: ${{ secrets.DEMO_API_KEY }}
+        run: |
+          if [ -z "$DEMO_API_KEY" ]; then
+            echo "Secret is missing"
+            exit 1
+          else
+            echo "Secret is available"
+          fi
+
+
+      # ------------------------------------------------------
+      # STEP 3 - Verify Runner
+      # ------------------------------------------------------
+      # Simple diagnostic step proving that commands are being
+      # executed on the CI runner.
+      #
+      # "run" = execute a shell command directly on the runner.
       - name: Verify runner
         run: echo "Running CI on macOS"
 
+
+      # ------------------------------------------------------
+      # STEP 4 - Check Xcode Version
+      # ------------------------------------------------------
+      # Prints the Xcode version being used by CI.
+      #
+      # This is useful when debugging differences between:
+      # Local Mac environment vs GitHub Actions environment.
       - name: Check Xcode version
         run: xcodebuild -version
 
+
+      # ------------------------------------------------------
+      # STEP 5 - List Installed Xcode Versions
+      # ------------------------------------------------------
+      # Diagnostic command showing available Xcode installations.
+      #
+      # Useful when a project fails because the runner is using
+      # an incompatible Xcode version.
       - name: List installed Xcode versions
         run: ls /Applications | grep Xcode
 
+
+      # ------------------------------------------------------
+      # STEP 6 - Build iOS Application
+      # ------------------------------------------------------
+      # xcodebuild is Apple's command-line build tool.
+      #
+      # -project:
+      #   Specifies the Xcode project to build.
+      #
+      # -scheme:
+      #   Specifies which shared scheme should be built.
+      #
+      # -sdk iphonesimulator:
+      #   Builds for the iOS Simulator rather than a physical device.
+      #
+      # CODE_SIGNING_ALLOWED=NO:
+      #   Simulator CI builds do not need application signing.
+      #   This also allows us to practice CI without an Apple
+      #   Developer account/certificates.
+      #
+      # For BUILDING we don't need to select one concrete simulator.
       - name: Build iOS App
-        # Build GitHubActionsDemo.xcodeproj
-        # Scheme - GitHubActionsDemo
-        # Build on simulator, concrete simulator is not required
-        # Code signing allowed is NO as we do not have Apple Developer account
         run: |
           xcodebuild build \
             -project GitHubActionsDemo.xcodeproj \
@@ -39,8 +197,28 @@ jobs:
             -sdk iphonesimulator \
             CODE_SIGNING_ALLOWED=NO
 
-      # Run test case on specific simulator
-      # For running test cases concrete simulator is required
+
+      # ------------------------------------------------------
+      # STEP 7 - Run Unit Tests
+      # ------------------------------------------------------
+      # Executes our XCTest unit tests.
+      #
+      # Unlike the generic build step, tests require a concrete
+      # simulator destination on which the tests can execute.
+      #
+      # -destination:
+      #   Selects the simulator used to run tests.
+      #
+      # -only-testing:
+      #   Runs only GitHubActionsDemoTests.
+      #   UI tests are intentionally excluded from this CI exercise.
+      #
+      # -enableCodeCoverage YES:
+      #   Collects coverage information while tests execute.
+      #
+      # -resultBundlePath:
+      #   Stores the XCTest result bundle at a predictable path.
+      #   We use that bundle in the next step to read coverage.
       - name: Run Unit Tests
         run: |
           xcodebuild test \
@@ -52,11 +230,64 @@ jobs:
             -resultBundlePath TestResults.xcresult \
             CODE_SIGNING_ALLOWED=NO
 
+
+      # ------------------------------------------------------
+      # STEP 8 - Display Code Coverage
+      # ------------------------------------------------------
+      # xccov is Apple's command-line utility for reading
+      # code-coverage information from an .xcresult bundle.
+      #
+      # TestResults.xcresult was generated by the previous step.
+      #
+      # Coverage tells us which executable lines were exercised
+      # by our tests. High coverage alone does NOT guarantee that
+      # the tests are correct or that the application is bug-free.
       - name: Show Code Coverage
         run: xcrun xccov view --report TestResults.xcresult
-        
+
+
+      # ------------------------------------------------------
+      # STEP 9 - Install SwiftLint
+      # ------------------------------------------------------
+      # SwiftLint performs static code-style/quality checks against
+      # Swift source files.
+      #
+      # Our local Mac does not need SwiftLint installed for this
+      # workflow because this command runs on the GitHub runner.
+      #
+      # Homebrew installs SwiftLint into the temporary CI environment.
       - name: Install SwiftLint
         run: brew install swiftlint
-        
+
+
+      # ------------------------------------------------------
+      # STEP 10 - Run SwiftLint
+      # ------------------------------------------------------
+      # Scans Swift files and reports rule violations.
+      #
+      # We already demonstrated:
+      #
+      # identifier_name violation
+      #       ↓
+      # SwiftLint error
+      #       ↓
+      # Non-zero exit code
+      #       ↓
+      # CI job fails
+      #       ↓
+      # Required status check fails
+      #       ↓
+      # PR merge is blocked
+      #
+      # SwiftLint rules can also be controlled using:
+      #
+      # File/section level:
+      #   // swiftlint:disable rule_name
+      #
+      # Re-enable:
+      #   // swiftlint:enable rule_name
+      #
+      # Next line only:
+      #   // swiftlint:disable:next rule_name
       - name: Run SwiftLint
         run: swiftlint
