@@ -291,13 +291,13 @@ macOS / Xcode Runner     ✅
 Automated iOS Build      ✅
 CI Debugging             ✅
 
-Unit Testing             ⏳
-Code Coverage            ⏳
-SwiftLint                ⏳
+Unit Testing             ✅
+Code Coverage            ✅
+SwiftLint                ✅
 Pull Request CI          ✅
 Artifacts                ⏳
 Caching                  ⏳
-Secrets                  ⏳
+Secrets                  ✅
 CD / TestFlight Concepts ⏳
 ```
 
