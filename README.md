@@ -161,6 +161,54 @@ The following topics will be added incrementally.
 - [x] Understand CI checks in the PR workflow
 - [x] Explore branch-based workflow rules
 
+#### Branch Protection
+Protected Branch: `main`
+Rules configured:
+- Pull Request is required before merging
+- `build-and-test` status check is required
+- CI must pass before the PR can be merged
+- Failed CI blocks the Merge button
+- New commits to an open PR trigger CI again
+- Merge remains manual even after all checks pass
+
+#### Branch Protection Flow
+Pull Request → main
+↓
+Required CI Check Runs
+↓
+CI Pending ⏳ → Merge Blocked
+↓
+CI Failed ❌ → Merge Blocked
+↓
+Fix + Push New Commit
+↓
+CI Runs Again
+↓
+CI Passed ✅ → Merge Enabled
+↓
+Developer Manually Merges PR
+
+#### Pull Request Workflow
+Feature Branch
+↓
+Push Changes
+↓
+Create Pull Request → main
+↓
+GitHub Actions CI Triggered
+↓
+Build App
+↓
+Run Unit Tests
+↓
+CI Failed ❌ → Merge Blocked
+↓
+Fix Code → Push Again → CI Runs Again
+↓
+CI Passed ✅
+↓
+Manual Merge to main
+
 ### Artifacts
 
 - [ ] Understand GitHub Actions artifacts
