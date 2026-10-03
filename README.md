@@ -139,9 +139,9 @@ The following topics will be added incrementally.
 - [x] Inspect test results in GitHub Actions
 
 ### Code Coverage
-- [ ] Enable code coverage
-- [ ] Generate coverage information during CI
-- [ ] Understand how coverage can be used as a quality signal
+- [x] Enable code coverage
+- [x] Generate coverage information during CI
+- [x] Understand how coverage can be used as a quality signal
 
 ### Code Quality
 - [ ] Integrate SwiftLint
