@@ -9,13 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        let unused_variable = "SwiftLint Demo"
+
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            // existing code...
         }
-        .padding()
     }
 }
 
