@@ -5,6 +5,8 @@
 //  Created by Anurag on 02/10/26.
 //
 
+// swiftlint:disable line_length
+
 import XCTest
 
 final class GitHubActionsDemoUITests: XCTestCase {
