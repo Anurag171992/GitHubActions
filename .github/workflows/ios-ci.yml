@@ -28,3 +28,6 @@ jobs:
       # on simulator
       # code signing allowed is No as we do not have Apple Developer account
         run: xcodebuild build -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO
+        
+      - name: Run Unit Tests
+        run: xcodebuild test -project GitHubActionsDemo.xcodeproj -scheme GitHubActionsDemo -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' CODE_SIGNING_ALLOWED=NO
